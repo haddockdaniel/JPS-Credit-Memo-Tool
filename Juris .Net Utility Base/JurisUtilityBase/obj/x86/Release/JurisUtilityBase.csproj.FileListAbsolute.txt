@@ -1,0 +1,116 @@
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\bin\x86\Release\JurisUtility.exe.config
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.csproj.ResolveComReference.cache
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\bin\x86\Release\JurisUtility.exe.manifest
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\bin\x86\Release\JurisUtility.application
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\bin\x86\Release\JurisUtility.exe
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\bin\x86\Release\JurisUtility.pdb
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\bin\x86\Release\C1.C1Report.4.dll
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\bin\x86\Release\C1.Win.C1Input.4.dll
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\bin\x86\Release\C1.Win.C1Report.4.dll
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\bin\x86\Release\Gizmox.Extensions.dll
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\bin\x86\Release\Ionic.Zlib.dll
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\bin\x86\Release\JurisAuthenticator.dll
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\bin\x86\Release\JurisDBO21.dll
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\bin\x86\Release\JurisIDef21.dll
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\bin\x86\Release\JurisStr21.dll
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\bin\x86\Release\JurisStr221.dll
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\bin\x86\Release\JurisSVR21.dll
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.csprojResolveAssemblyReference.cache
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.UtilityBaseMain.resources
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.Properties.Resources.resources
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.SplashScreen.resources
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.csproj.GenerateResource.Cache
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtility.exe.manifest
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtility.application
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtility.exe
+C:\Utils\.Net Juris Utils\Juris Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtility.pdb
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\C1.C1Report.4.dll
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\C1.Win.C1Input.4.dll
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\C1.Win.C1Report.4.dll
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\Gizmox.Extensions.dll
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\Ionic.Zlib.dll
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisAuthenticator.dll
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisDBO21.dll
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisIDef21.dll
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisStr21.dll
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisStr221.dll
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisSVR21.dll
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.csprojAssemblyReference.cache
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.csproj.ResolveComReference.cache
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.PrinterDialog.resources
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.ReportDisplay.resources
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.UtilityBaseMain.resources
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.Properties.Resources.resources
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.SplashScreen.resources
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.csproj.GenerateResource.cache
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.csproj.CoreCompileInputs.cache
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.csproj.CopyComplete
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisCustomUtility.exe.config
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisCustomUtility.exe.manifest
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisCustomUtility.application
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisCustomUtility.exe
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisCustomUtility.pdb
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisCustomUtility.exe.manifest
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisCustomUtility.application
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisCustomUtility.exe
+D:\Utilities Source\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisCustomUtility.pdb
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JPS - Cash Allocation Tool.exe.config
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JPS - Cash Allocation Tool.exe.manifest
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JPS - Cash Allocation Tool.application
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JPS - Cash Allocation Tool.exe
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JPS - Cash Allocation Tool.pdb
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\C1.C1Report.4.dll
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\C1.Win.C1Input.4.dll
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\C1.Win.C1Report.4.dll
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\Gizmox.Extensions.dll
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\Ionic.Zlib.dll
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisAuthenticator.dll
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisDBO21.dll
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisIDef21.dll
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisStr21.dll
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisStr221.dll
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisSVR21.dll
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.csprojAssemblyReference.cache
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.csproj.ResolveComReference.cache
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.PrinterDialog.resources
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.ReportDisplay.resources
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.UtilityBaseMain.resources
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.Properties.Resources.resources
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.SplashScreen.resources
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.csproj.GenerateResource.cache
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.csproj.CoreCompileInputs.cache
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JPS - Cash Allocation Tool.exe.manifest
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JPS - Cash Allocation Tool.application
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.csproj.CopyComplete
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JPS - Cash Allocation Tool.exe
+D:\Utility Repository\JPS - Cash Receipt Allocation Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JPS - Cash Allocation Tool.pdb
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JPS - Cash Allocation Tool.exe.config
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JPS - Cash Allocation Tool.exe.manifest
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JPS - Cash Allocation Tool.application
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JPS - Cash Allocation Tool.exe
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JPS - Cash Allocation Tool.pdb
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\C1.C1Report.4.dll
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\C1.Win.C1Input.4.dll
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\C1.Win.C1Report.4.dll
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\Gizmox.Extensions.dll
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\Ionic.Zlib.dll
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisAuthenticator.dll
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisDBO21.dll
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisIDef21.dll
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisStr21.dll
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisStr221.dll
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Release\JurisSVR21.dll
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.csprojAssemblyReference.cache
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.csproj.ResolveComReference.cache
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.PrinterDialog.resources
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.ReportDisplay.resources
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.UtilityBaseMain.resources
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.Properties.Resources.resources
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.SplashScreen.resources
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.csproj.GenerateResource.cache
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.csproj.CoreCompileInputs.cache
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JPS - Cash Allocation Tool.exe.manifest
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JPS - Cash Allocation Tool.application
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JurisUtilityBase.csproj.CopyComplete
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JPS - Cash Allocation Tool.exe
+D:\Utility Repository\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Release\JPS - Cash Allocation Tool.pdb
