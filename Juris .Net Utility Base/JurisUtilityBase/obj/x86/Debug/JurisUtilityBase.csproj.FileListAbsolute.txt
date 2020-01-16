@@ -136,3 +136,7 @@ D:\Projects\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisU
 D:\Projects\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Debug\JPS - Cash Allocation Tool.pdb
 D:\Projects\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JPS - Cash Allocation Tool.exe.manifest
 D:\Projects\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JPS - Cash Allocation Tool.application
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Debug\JPS - Cash Allocation Tool.exe.config
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JurisUtilityBase.csproj.ResolveComReference.cache
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JPS - Cash Allocation Tool.exe
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JPS - Cash Allocation Tool.pdb

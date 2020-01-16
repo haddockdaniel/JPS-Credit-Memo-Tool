@@ -425,17 +425,17 @@ namespace JurisUtilityBase
             Application.DoEvents();
 
 
-            string SQL = "Insert into CRFeeAlloc(crfbatch, crfrecnbr, crfmatter, crfbillnbr, crftkpr, crftaskcd, crfactivitycd, crfprepost, crfamount) " +
+            string SQL = "Insert into CMFeeAlloc([CMFBatch]  ,[CMFRecNbr]  ,[CMFTkpr] ,[CMFBillNbr] ,[CMFMatter] ,[CMFPreAdj] ,[CMFAdj]) " +
                 " Select  crbbatchnbr, crbreccount, matter, billnbr,tkpr, case when taskcd='' then null else taskcd end, case when actcd='' then null else actcd end, prepost, amt " +
                 " from (select matter, billnbr, tkpr, isnull(taskcd,'') as taskcd, isnull(actcd,'') as actcd, sum(allocAmt) as amt from #ARAlloc where IType='Fee' group by matter, billnbr, tkpr, isnull(taskcd,''), isnull(actcd,'')) AR " +
                 " Inner join (select arftmatter, arftbillnbr, arfttkpr, isnull(arfttaskcd,'') as ARFTTask, isnull(arftactivitycd,'') as ActivityCd, sum(arftactualamtbld - arftrcvd + arftadj) as Prepost " +
                 " from arftaskalloc group by arftmatter, arftbillnbr, arfttkpr, isnull(arfttaskcd,''), isnull(arftactivitycd,'')) ARM on matter=arftmatter and billnbr=arftbillnbr and arfttkpr=tkpr and taskcd=arfttask and actcd=activitycd, cashreceiptsbatch " +
-                " where crbbatchnbr=" + singleBatch;
+                " where crbbatchnbr=" + cm.BatchNumber;
             _jurisUtility.ExecuteNonQueryCommand(0, SQL);
 
 
-            SQL = "Update arftaskalloc set arftpend=crfamount " +
-                " from crfeealloc where crfbatch=" + singleBatch + " and arftmatter=crfmatter and arftbillnbr=crfbillnbr and crftkpr=arfttkpr and isnull(crftaskcd,'')=isnull(arfttaskcd,'') " +
+            SQL = "Update arftaskalloc set arftpend=0.00 " +
+                " where arftmatter=" + cm.mat + " and arftbillnbr=" + cm.inv + " and crftkpr=arfttkpr and isnull(crftaskcd,'')=isnull(arfttaskcd,'') " +
                 "  and isnull(crfactivitycd,'')=isnull(arftactivitycd,'')";
             _jurisUtility.ExecuteNonQueryCommand(0, SQL);
 			
