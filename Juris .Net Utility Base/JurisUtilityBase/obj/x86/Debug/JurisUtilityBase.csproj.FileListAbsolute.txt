@@ -136,7 +136,20 @@ D:\Projects\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisU
 D:\Projects\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Debug\JPS - Cash Allocation Tool.pdb
 D:\Projects\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JPS - Cash Allocation Tool.exe.manifest
 D:\Projects\JPS---Cash-Receipt-Allocation-Utility\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JPS - Cash Allocation Tool.application
-D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Debug\JPS - Cash Allocation Tool.exe.config
 D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JurisUtilityBase.csproj.ResolveComReference.cache
-D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JPS - Cash Allocation Tool.exe
-D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JPS - Cash Allocation Tool.pdb
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JurisUtilityBase.csprojResolveAssemblyReference.cache
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JurisUtilityBase.PrinterDialog.resources
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JurisUtilityBase.ReportDisplay.resources
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JurisUtilityBase.UtilityBaseMain.resources
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JurisUtilityBase.Properties.Resources.resources
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JurisUtilityBase.SplashScreen.resources
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JurisUtilityBase.csproj.GenerateResource.Cache
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Debug\JPS - Credit Memo Tool.exe.config
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Debug\JPS - Credit Memo Tool.exe.manifest
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Debug\JPS - Credit Memo Tool.application
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Debug\JPS - Credit Memo Tool.exe
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\bin\x86\Debug\JPS - Credit Memo Tool.pdb
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JPS - Credit Memo Tool.exe.manifest
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JPS - Credit Memo Tool.application
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JPS - Credit Memo Tool.exe
+D:\Projects\JPS-Credit Memo Tool\Juris .Net Utility Base\JurisUtilityBase\obj\x86\Debug\JPS - Credit Memo Tool.pdb

@@ -103,14 +103,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JPS - Cash Allocation Tool.exe" size="870400">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JPS - Cash Allocation Tool.exe" size="886784">
       <assemblyIdentity name="JPS - Cash Allocation Tool" version="2.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>g73zmw/25von9x+imL5Us21wiCk=</dsig:DigestValue>
+        <dsig:DigestValue>Snz/fcbz+JQ7GtwpN+oiigM8Cb8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
