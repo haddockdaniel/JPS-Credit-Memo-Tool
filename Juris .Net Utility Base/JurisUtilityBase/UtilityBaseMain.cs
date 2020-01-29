@@ -157,7 +157,7 @@ namespace JurisUtilityBase
             string cmt = Application.ProductName.ToString();
             WriteLog(cmt);
 
-            MessageBox.Show("Credit Memo Creation Completed.");
+            MessageBox.Show("Credit Memo Creation Completed.", "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
          
         }
 
@@ -679,13 +679,14 @@ namespace JurisUtilityBase
                         invs = invs + inv + ",";
                     }
                     invs = invs.TrimEnd(',');
-                    string sqlB = "select ARMBillNbr as BillNumber, dbo.jfn_FormatMatterCode(matcode) as MatterCode, cast(sum([ARMFeeBld] - [ARMFeeRcvd] + [ARMFeeAdj]) as decimal(15,2)) as Fees, " +
+                    string sqlB = "select ARMBillNbr as BillNumber, dbo.jfn_FormatClientCode(clicode) as ClientCode, dbo.jfn_FormatMatterCode(matcode) as MatterCode, cast(sum([ARMFeeBld] - [ARMFeeRcvd] + [ARMFeeAdj]) as decimal(15,2)) as Fees, " +
                     " cast(sum([ARMCshExpBld] - [ARMCshExpRcvd] + [ARMCshExpAdj]) as decimal(15, 2)) as CashExp,  cast(sum([ARMNCshExpBld] - [ARMNCshExpRcvd] + [ARMNCshExpAdj]) as decimal(15,2)) as NonCashExp, " +
                     " cast(sum(([ARMCshExpBld] - [ARMCshExpRcvd] + [ARMCshExpAdj]) + ([ARMNCshExpBld] - [ARMNCshExpRcvd] + [ARMNCshExpAdj]) + ([ARMFeeBld] - [ARMFeeRcvd] + [ARMFeeAdj])) as decimal(15,2)) as Total, matsysnbr as matID " +
                     " from ARMatAlloc  " +
                     " inner join matter on matsysnbr = ARMMatter " +
+                    " inner join client on clisysnbr = matclinbr " +
                     " where ARMBillNbr in (" + invs + ") " +
-                    " group by ARMBillNbr, matcode, matsysnbr " + 
+                    " group by ARMBillNbr, clicode,matcode, matsysnbr " + 
                     " having sum(([ARMCshExpBld] - [ARMCshExpRcvd] + [ARMCshExpAdj]) + ([ARMNCshExpBld] - [ARMNCshExpRcvd] + [ARMNCshExpAdj]) + ([ARMFeeBld] - [ARMFeeRcvd] + [ARMFeeAdj])) <> 0";
                     DataSet spBatch = _jurisUtility.RecordsetFromSQL(sqlB);
                     if (spBatch.Tables[0].Rows.Count == 0)
@@ -716,7 +717,7 @@ namespace JurisUtilityBase
                 }
                 else
                 {
-                    MessageBox.Show("There were no valid invoice numbers in the selected text file", "Selection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("There were no valid invoice numbers in the selected text" + "\r\n" + " file or none of the invoices have a balance", "Selection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
 
