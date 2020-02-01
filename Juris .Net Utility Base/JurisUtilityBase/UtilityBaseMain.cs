@@ -132,10 +132,6 @@ namespace JurisUtilityBase
                 foreach (CreditMemo cm in memos)
                 {
                     cm.LHID = CreateLedgerHistory(cm);
-                    cm.BatchNumber = CreateBatch(cm);
-                    CreateBatchRecord(cm);
-                    CreateBatchFees(cm);
-                    CreateBatchExps(cm);
                 }
 
             }
@@ -190,7 +186,7 @@ namespace JurisUtilityBase
 
             _jurisUtility.ExecuteNonQueryCommand(0, SQL);
 
-            SQL = "Update ARMatalloc set ARMLHLink = (select SpNbrValue from sysparam where spname = 'LastSysNbrLH'),ARMFeeAdj = ([ARMFeeBld] - [ARMFeeRcvd] + [ARMFeeAdj]) * -1 ,ARMCshExpAdj = ([ARMCshExpBld] - [ARMCshExpRcvd] + [ARMCshExpAdj]) * -1 " +
+            SQL = "Update ARMatalloc set ARMLHLink = " + (lastLH + 1).ToString() + ",ARMFeeAdj = ([ARMFeeBld] - [ARMFeeRcvd] + [ARMFeeAdj]) * -1 ,ARMCshExpAdj = ([ARMCshExpBld] - [ARMCshExpRcvd] + [ARMCshExpAdj]) * -1 " +
                   " ,ARMNCshExpAdj = ([ARMNCshExpBld] - [ARMNCshExpRcvd] + [ARMNCshExpAdj]) * -1  ,[ARMBalDue] = 0 where ARMBillNbr = " + cm.inv + " and ARMMatter = " + cm.mat;
 
             _jurisUtility.ExecuteNonQueryCommand(0, SQL);
@@ -198,25 +194,17 @@ namespace JurisUtilityBase
 
             SQL = "Update sysparam set spnbrvalue=spnbrvalue + 1 where spname='LastSysNbrLH'";
             _jurisUtility.ExecuteNonQueryCommand(0, SQL);
-            return lastLH + 1;
-        }
 
-        private int CreateBatch(CreditMemo cm)
-        {
-            Cursor.Current = Cursors.WaitCursor;
-            toolStripStatusLabel.Text = "Creating Batch Record...";
-            statusStrip.Refresh();
-            Application.DoEvents();
             int lastBatchNo = 0;
 
-            string sqlB = "select SpNbrValue from sysparam where spname = 'LastBatchCM'";
-            DataSet spBatch = _jurisUtility.RecordsetFromSQL(sqlB);
-            DataTable dtB = spBatch.Tables[0];
-            if (dtB.Rows.Count == 0)
+            sqlB = "select SpNbrValue from sysparam where spname = 'LastBatchCM'";
+            DataSet spBatch1 = _jurisUtility.RecordsetFromSQL(sqlB);
+            DataTable dtB1 = spBatch1.Tables[0];
+            if (dtB1.Rows.Count == 0)
             { MessageBox.Show("Invalid sysparam data - LastBatchCM"); }
             else
             {
-                foreach (DataRow dr in dtB.Rows)
+                foreach (DataRow dr in dtB1.Rows)
                 {
                     lastBatchNo = Convert.ToInt32(dr["SpNbrValue"].ToString());
                 }
@@ -225,11 +213,50 @@ namespace JurisUtilityBase
 
             string MYFolder = PYear + "-" + PNbr;
 
-            string SQL = "Insert into creditmemobatch( [CMBBatchNbr] ,[CMBComment] ,[CMBStatus] ,[CMBRecCount] ,[CMBEnteredBy] ,[CMBDateEntered] ,[CMBLastOpenedBy] ,[CMBLastOpenedDate] ,[CMBJEBatchNbr]) VALUES (" +
-              lastBatchNo + 1 + ",'Write Off by JPS - Credit Memo Utility','U',1, (select empsysnbr from employee where EmpID = 'SMGR'), getdate(), " + 
+            SQL = "Insert into creditmemobatch( [CMBBatchNbr] ,[CMBComment] ,[CMBStatus] ,[CMBRecCount] ,[CMBEnteredBy] ,[CMBDateEntered] ,[CMBLastOpenedBy] ,[CMBLastOpenedDate] ,[CMBJEBatchNbr]) VALUES (" +
+              lastBatchNo + 1 + ",'Write Off by JPS - Credit Memo Utility','U',1, (select empsysnbr from employee where EmpID = 'SMGR'), getdate(), " +
               " (select empsysnbr from employee where EmpID = 'SMGR'), getdate(), null)";
 
             _jurisUtility.ExecuteNonQueryCommand(0, SQL);
+
+            SQL = "Insert into creditmemo ( [CMBatchNbr] ,[CMRecNbr]  ,[CMLHLink] ,[CMBillNbr] ,[CMMatter] ,[CMComment] ,[CMDate] ,[CMPrdYear] ,[CMPrdNbr] ,[CMPreAdjFee] ,[CMFeeAdj] ,[CMPreAdjCshExp] ,[CMCshExpAdj] ,[CMPreAdjNCshExp] ,[CMNCshExpAdj],[CMPreAdjSurchg] ,[CMSurchgAdj] ,[CMPreAdjTax1] ,[CMTax1Adj] ,[CMPreAdjTax2] ,[CMTax2Adj] ,[CMPreAdjTax3] ,[CMTax3Adj] ,[CMPreAdjInterest] ,[CMInterestAdj],[CMPrintOption] ,[CMNarrative]) VALUES (" +
+                                                   lastBatchNo + 1 + ",1," + (lastLH + 1).ToString() + "," + cm.inv + ", " + cm.mat + ", 'Write off by JPS - Credit Memo Tool', getdate(), " + PYear + ", " + PNbr + "," + cm.fees + "," + cm.fees * -1 + "," + cm.cashexp + "," + cm.cashexp * -1 + ", " + cm.noncashexp + "," + cm.noncashexp * -1 + ", 0.00, 0.00, 0.00,0.00,0.00,0.00, 0.00, 0.00, 0.00, 0.00, 'A', 'Credit Memo Tool Write Off')";
+
+            _jurisUtility.ExecuteNonQueryCommand(0, SQL);
+
+            SQL = "Update arftaskalloc set ARFTAdj= (arftactualamtbld - arftrcvd + arftadj ) * -1" +
+    " where arftmatter=" + cm.mat + " and arftbillnbr=" + cm.inv;
+            _jurisUtility.ExecuteNonQueryCommand(0, SQL);
+
+            SQL = "select ARFTkpr from ARFeeAlloc where ARFBillNbr = " + cm.inv + " and ARFMatter = " + cm.mat;
+
+            DataSet dds = _jurisUtility.RecordsetFromSQL(SQL);
+
+            foreach (DataRow rr in dds.Tables[0].Rows)
+            {
+                SQL = "Insert into CMFeeAlloc([CMFBatch]  ,[CMFRecNbr]  ,[CMFTkpr] ,[CMFBillNbr] ,[CMFMatter] ,[CMFPreAdj] ,[CMFAdj]) " +
+                    " values (" + lastBatchNo + 1 + ", 1, " + rr[0].ToString() + ", " + cm.inv + ", " + cm.mat + ", (select sum(ARFTAdj) * -1 from ARFTaskAlloc where arftmatter=" + cm.mat + " and arftbillnbr=" + cm.inv + " and ARFTTkpr = " + rr[0].ToString() + ") , (select sum(ARFTAdj) from ARFTaskAlloc where arftmatter=" + cm.mat + " and arftbillnbr=" + cm.inv + " and ARFTTkpr = " + rr[0].ToString() + " ))";
+                _jurisUtility.ExecuteNonQueryCommand(0, SQL);
+            }
+
+            SQL = "Update arexpalloc set arepend= (AREBldAmount - ARERcvd + AREAdj ) * -1" +
+" where AREMatter=" + cm.mat + " and AREBillNbr=" + cm.inv;
+            _jurisUtility.ExecuteNonQueryCommand(0, SQL);
+
+            SQL = "SELECT  [AREBillNbr] ,[AREMatter],[AREExpCd] ,[AREExpType] ,([AREBldAmount] - [ARERcvd] + [AREAdj]) as total FROM [ARExpAlloc] where AREBillNbr = " + cm.inv + " and AREMatter = " + cm.mat;
+
+            dds.Clear();
+
+            dds = _jurisUtility.RecordsetFromSQL(SQL);
+
+            foreach (DataRow rr in dds.Tables[0].Rows)
+            {
+
+                SQL = "Insert into CMExpAlloc ([CMEBatch] ,[CMERecNbr] ,[CMEExpCd] ,[CMEExpType] ,[CMEBillNbr] ,[CMEMatter] ,[CMEPreAdj],[CMEAdj]) " +
+                    " values (" + lastBatchNo + 1 + ", 1, '" + rr[2].ToString() + "', '" + rr[3].ToString() + "', " + rr[0].ToString() + ", " + rr[1].ToString() + ", " + rr[4].ToString() + ", " + (Convert.ToDouble(rr[4].ToString()) * -1).ToString()
+                    + " )";
+                _jurisUtility.ExecuteNonQueryCommand(0, SQL);
+            }
 
 
             SQL = "Update sysparam set spnbrvalue=spnbrvalue + 1 where spname='LastBatchCM'";
@@ -275,7 +302,7 @@ namespace JurisUtilityBase
                                 "select (select max(dtdocid) from documenttree) + 1, 'Y', 5200,'R', " +
                                 " (Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=4  and dttitle='" + MYFolder + "') and dttitle='SMGR')," +
                                 "'JPS-Credit Memo Tool-'  + cast((select spnbrvalue from sysparam where spname='LastBatchCM') as varchar(20))', " +
-                                cm.BatchNumber;
+                                lastBatchNo + 1;
                             _jurisUtility.ExecuteNonQueryCommand(0, s2);
 
 
@@ -301,7 +328,7 @@ namespace JurisUtilityBase
                                     "select (select max(dtdocid) from documenttree) + 1, 'Y', 5200,'R', " +
                                     " (Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=4 and dttitle='" + MYFolder + "')  and dttitle='SMGR')," +
                                     "'JPS-Credit Memo Tool-' , " +
-                                    cm.BatchNumber;
+                                    lastBatchNo + 1;
                                 _jurisUtility.ExecuteNonQueryCommand(0, s2);
 
 
@@ -314,7 +341,7 @@ namespace JurisUtilityBase
                                     "select (select max(dtdocid) from documenttree) + 1, 'Y', 5200,'R', " +
                                     " (Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=4 and dttitle='" + MYFolder + "')  and dttitle='SMGR')," +
                                     "'JPS-Credit Memo Tool-' , " +
-                                    cm.BatchNumber;
+                                    lastBatchNo + 1;
                                 _jurisUtility.ExecuteNonQueryCommand(0, s2);
 
 
@@ -348,7 +375,7 @@ namespace JurisUtilityBase
                                 "select (select max(dtdocid) from documenttree) + 1, 'Y', 5200,'R', " +
                                 " (Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=4  and dttitle='SMGR') and dttitle='" + MYFolder + "')," +
                                 "'JPS-Credit Memo Tool-' , " +
-                                cm.BatchNumber;
+                                lastBatchNo + 1;
                             _jurisUtility.ExecuteNonQueryCommand(0, s2);
 
 
@@ -374,7 +401,7 @@ namespace JurisUtilityBase
                                     "select (select max(dtdocid) from documenttree) + 1, 'Y', 5200,'R', " +
                                     " (Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=4   and dttitle='SMGR')and dttitle='" + MYFolder + "')," +
                                     "'JPS-Credit Memo Tool-' , " +
-                                    cm.BatchNumber;
+                                    lastBatchNo + 1;
                                 _jurisUtility.ExecuteNonQueryCommand(0, s2);
 
 
@@ -387,7 +414,7 @@ namespace JurisUtilityBase
                                     "select (select max(dtdocid) from documenttree) + 1, 'Y', 5200,'R', " +
                                     " (Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=4 and dttitle='SMGR') and dttitle='" + MYFolder + "') ," +
                                     "'JPS-Credit Memo Tool-' , " +
-                                    cm.BatchNumber;
+                                    lastBatchNo + 1;
                                 _jurisUtility.ExecuteNonQueryCommand(0, s2);
 
 
@@ -407,74 +434,8 @@ namespace JurisUtilityBase
 
         }
 
-        private void CreateBatchRecord(CreditMemo cm)
-        {
-            Cursor.Current = Cursors.WaitCursor;
-            toolStripStatusLabel.Text = "Creating Individual Batch Records Record...";
-            statusStrip.Refresh();
-            Application.DoEvents();
-
-            string SQL = "Insert into creditmemo ( [CMBatchNbr] ,[CMRecNbr]  ,[CMLHLink] ,[CMBillNbr] ,[CMMatter] ,[CMComment] ,[CMDate] ,[CMPrdYear] ,[CMPrdNbr] ,[CMPreAdjFee] ,[CMFeeAdj] ,[CMPreAdjCshExp] ,[CMCshExpAdj] ,[CMPreAdjNCshExp] ,[CMNCshExpAdj],[CMPreAdjSurchg] ,[CMSurchgAdj] ,[CMPreAdjTax1] ,[CMTax1Adj] ,[CMPreAdjTax2] ,[CMTax2Adj] ,[CMPreAdjTax3] ,[CMTax3Adj] ,[CMPreAdjInterest] ,[CMInterestAdj],[CMPrintOption] ,[CMNarrative]) VALUES (" +
-                                                   cm.BatchNumber + ",1," + cm.LHID + "," + cm.inv + ", " + cm.mat + ", 'Write off by JPS - Credit Memo Tool', getdate(), " + PYear + ", " + PNbr + "," + cm.fees + "," + cm.fees * -1 + "," + cm.cashexp + "," + cm.cashexp * -1 + ", " + cm.noncashexp + "," + cm.noncashexp * -1 + ", 0.00, 0.00, 0.00,0.00,0.00,0.00, 0.00, 0.00, 0.00, 0.00, 'A', 'Credit Memo Tool Write Off')";
-
-            _jurisUtility.ExecuteNonQueryCommand(0, SQL);
-
-        }
 
 
-        private void CreateBatchFees(CreditMemo cm)
-        {
-            Cursor.Current = Cursors.WaitCursor;
-            toolStripStatusLabel.Text = "Creating Credit Memo Batch Fees...";
-            statusStrip.Refresh();
-            Application.DoEvents();
-
-            string SQL = "Update arftaskalloc set ARFTAdj= (arftactualamtbld - arftrcvd + arftadj ) * -1" +
-    " where arftmatter=" + cm.mat + " and arftbillnbr=" + cm.inv;
-            _jurisUtility.ExecuteNonQueryCommand(0, SQL);
-
-            SQL = "select ARFTkpr from ARFeeAlloc where ARFBillNbr = " + cm.inv + " and ARFMatter = " + cm.mat;
-
-            DataSet dds = _jurisUtility.RecordsetFromSQL(SQL);
-
-            foreach (DataRow rr in dds.Tables[0].Rows)
-            {
-                SQL = "Insert into CMFeeAlloc([CMFBatch]  ,[CMFRecNbr]  ,[CMFTkpr] ,[CMFBillNbr] ,[CMFMatter] ,[CMFPreAdj] ,[CMFAdj]) " +
-                    " values (" + cm.BatchNumber + ", 1, " + rr[0].ToString() + ", " + cm.inv + ", " + cm.mat + ", (select sum(ARFTAdj) * -1 from ARFTaskAlloc where arftmatter=" + cm.mat + " and arftbillnbr=" + cm.inv + " and ARFTTkpr = " + rr[0].ToString() + ") , (select sum(ARFTAdj) from ARFTaskAlloc where arftmatter=" + cm.mat + " and arftbillnbr=" + cm.inv + " and ARFTTkpr = " + rr[0].ToString() + " ))";
-                _jurisUtility.ExecuteNonQueryCommand(0, SQL);
-            }
-
-        }
-
-        private void CreateBatchExps(CreditMemo cm)
-        {
-            Cursor.Current = Cursors.WaitCursor;
-            toolStripStatusLabel.Text = "Creating Credit Memo Batch Exps...";
-            statusStrip.Refresh();
-            Application.DoEvents();
-
-
-            string SQL = "Update arexpalloc set arepend= (AREBldAmount - ARERcvd + AREAdj ) * -1" +
-" where AREMatter=" + cm.mat + " and AREBillNbr=" + cm.inv;
-            _jurisUtility.ExecuteNonQueryCommand(0, SQL);
-
-            SQL = "SELECT  [AREBillNbr] ,[AREMatter],[AREExpCd] ,[AREExpType] ,([AREBldAmount] - [ARERcvd] + [AREAdj]) as total FROM [ARExpAlloc] where AREBillNbr = " + cm.inv + " and AREMatter = " + cm.mat;
-
-            DataSet dds = _jurisUtility.RecordsetFromSQL(SQL);
-
-            foreach (DataRow rr in dds.Tables[0].Rows)
-            {
-                
-                SQL = "Insert into CMExpAlloc ([CMEBatch] ,[CMERecNbr] ,[CMEExpCd] ,[CMEExpType] ,[CMEBillNbr] ,[CMEMatter] ,[CMEPreAdj],[CMEAdj]) " +
-                    " values (" + cm.BatchNumber + ", 1, '" + rr[2].ToString() + "', '" + rr[3].ToString() + "', " + rr[0].ToString() + ", " + rr[1].ToString() + ", " + rr[4].ToString() + ", " + (Convert.ToDouble(rr[4].ToString()) * -1).ToString()
-                    + " )";
-                _jurisUtility.ExecuteNonQueryCommand(0, SQL);
-            }
-
-
-
-
-        }
 
         private bool VerifyFirmName()
         {
