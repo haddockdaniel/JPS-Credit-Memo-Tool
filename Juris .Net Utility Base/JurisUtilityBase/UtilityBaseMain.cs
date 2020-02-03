@@ -108,7 +108,7 @@ namespace JurisUtilityBase
                 Cursor.Current = Cursors.WaitCursor;
                 toolStripStatusLabel.Text = "Creating Credit Memos...";
                 statusStrip.Refresh();
-                UpdateStatus("Creating Credit Memos...", 1, 10);
+                UpdateStatus("Creating Credit Memos...", 1, memos.Count + 1);
                 Application.DoEvents();
                 string SQLC = "select max(case when spname='CurAcctPrdYear' then cast(spnbrvalue as varchar(4)) else '' end) as PrdYear, max(Case when spname = 'CurAcctPrdNbr' then case " +
     " when spnbrvalue<9 then '0' + cast(spnbrvalue as varchar(1)) else cast(spnbrvalue as varchar(2)) end  else '' end) as PrdNbr," +
@@ -129,9 +129,14 @@ namespace JurisUtilityBase
 
                     }
                 }
+                int counter = 1;
                 foreach (CreditMemo cm in memos)
                 {
                     cm.LHID = CreateLedgerHistory(cm);
+                    toolStripStatusLabel.Text = "Processing Credit Memos...";
+                    statusStrip.Refresh();
+                    UpdateStatus("Processing Credit Memos...", counter + 1, memos.Count + 1);
+                    counter++;
                 }
 
             }
@@ -145,7 +150,7 @@ namespace JurisUtilityBase
             Cursor.Current = Cursors.Default;
             toolStripStatusLabel.Text = "Utility Completed.";
             statusStrip.Refresh();
-            UpdateStatus("Utility Completed.", 1, 1);
+            UpdateStatus("Utility Completed.", memos.Count + 1, memos.Count + 1);
             Application.DoEvents();
 
 
@@ -190,6 +195,10 @@ namespace JurisUtilityBase
                   " ,ARMNCshExpAdj = ([ARMNCshExpBld] - [ARMNCshExpRcvd] + [ARMNCshExpAdj]) * -1  ,[ARMBalDue] = 0 where ARMBillNbr = " + cm.inv + " and ARMMatter = " + cm.mat;
 
             _jurisUtility.ExecuteNonQueryCommand(0, SQL);
+
+            SQL = "Update matter set MatAdjSinceLastBill = (MatAdjSinceLastBill + (" + cm.fees * -1 + "+" + cm.cashexp * -1 + "+ " + cm.noncashexp * -1 + ")) where matsysnbr = " + cm.mat;
+            _jurisUtility.ExecuteNonQueryCommand(0, SQL);
+            //MatAdjSinceLastBill = MatAdjSinceLastBill + adjustment
 
 
             SQL = "Update sysparam set spnbrvalue=spnbrvalue + 1 where spname='LastSysNbrLH'";
@@ -263,8 +272,8 @@ namespace JurisUtilityBase
             _jurisUtility.ExecuteNonQueryCommand(0, SQL);
 
             SQL = "select max(case when spname='CurAcctPrdYear' then cast(spnbrvalue as varchar(4)) else '' end) as PrdYear, " +
-                   "max(Case when spname='CurAcctPrdNbr' then case when spnbrvalue<9 then '0' + cast(spnbrvalue as varchar(1)) else cast(spnbrvalue as varchar(2)) end  else '' end) as PrdNbr, " +
-                   "max(case when spname='LastSysNbrDocTree' then spnbrvalue else 0 end) as DTree,max(case when spname='CfgMiscOpts' then substring(sptxtvalue,14,1) else 0 end) as DOrder from sysparam";
+                               "max(Case when spname='CurAcctPrdNbr' then case when spnbrvalue<9 then '0' + cast(spnbrvalue as varchar(1)) else cast(spnbrvalue as varchar(2)) end  else '' end) as PrdNbr, " +
+                               "max(case when spname='LastSysNbrDocTree' then spnbrvalue else 0 end) as DTree,max(case when spname='CfgMiscOpts' then substring(sptxtvalue,14,1) else 0 end) as DOrder from sysparam";
             DataSet myRSSysParm = _jurisUtility.RecordsetFromSQL(SQL);
 
             DataTable dtSP = myRSSysParm.Tables[0];
@@ -279,20 +288,20 @@ namespace JurisUtilityBase
                     DOrder = dr["DOrder"].ToString();
                     if (DOrder == "2")
                     {
-                        string SPSql = "Select dtdocid from documenttree where dtparentid=4 and dtdocclass='5200' and dttitle='" + MYFolder + "'";
+                        string SPSql = "Select dtdocid from documenttree where dtparentid=37 and dtdocclass=5200 and dttitle='" + MYFolder + "'";
                         DataSet spMY = _jurisUtility.RecordsetFromSQL(SPSql);
                         DataTable dtMY = spMY.Tables[0];
                         if (dtMY.Rows.Count == 0)
                         {
                             string s2 = "Insert into documenttree(dtdocid, dtsystemcreated, dtdocclass, dtdoctype, dtparentid, dttitle) " +
-                                  "select max(dtdocid)  + 1, 'Y', 5200,'F', 4,'" + MYFolder + "' from documenttree ";
+                                  "values((select max(dtdocid)  + 1 from documenttree), 'Y', 5200,'F', 37,'" + MYFolder + "') ";
                             _jurisUtility.ExecuteNonQueryCommand(0, s2);
                             s2 = "Update sysparam set spnbrvalue=(select max(dtdocid) from documenttree) where spname='LastSysNbrDocTree'";
                             _jurisUtility.ExecuteNonQueryCommand(0, s2);
 
                             s2 = "Insert into documenttree(dtdocid, dtsystemcreated, dtdocclass, dtdoctype, dtparentid, dttitle) " +
                                 "select (select max(dtdocid) from documenttree) + 1, 'Y', 5200,'F', dtdocid,'SMGR'" +
-                                " from documenttree where dtparentid=4 and dttitle='" + MYFolder + "'";
+                                " from documenttree where dtparentid=37 and dttitle='" + MYFolder + "'";
                             _jurisUtility.ExecuteNonQueryCommand(0, s2);
 
                             s2 = "Update sysparam set spnbrvalue=(select max(dtdocid) from documenttree) where spname='LastSysNbrDocTree'";
@@ -300,9 +309,8 @@ namespace JurisUtilityBase
 
                             s2 = "Insert into documenttree(dtdocid, dtsystemcreated, dtdocclass, dtdoctype, dtparentid, dttitle, dtkeyL) " +
                                 "select (select max(dtdocid) from documenttree) + 1, 'Y', 5200,'R', " +
-                                " (Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=4  and dttitle='" + MYFolder + "') and dttitle='SMGR')," +
-                                "'JPS-Credit Memo Tool-'  + cast((select spnbrvalue from sysparam where spname='LastBatchCM') as varchar(20))', " +
-                                lastBatchNo + 1;
+                                " (Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=37  and dttitle='" + MYFolder + "') and dttitle='SMGR')," +
+                                "'JPS-Credit Memo Tool', " + lastBatchNo + 1;
                             _jurisUtility.ExecuteNonQueryCommand(0, s2);
 
 
@@ -311,14 +319,14 @@ namespace JurisUtilityBase
                         }
                         else
                         {
-                            string SMGRSql = "Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=4 and dttitle='" + MYFolder + "') and dttitle='SMGR'";
+                            string SMGRSql = "Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=37 and dttitle='" + MYFolder + "') and dttitle='SMGR'";
                             DataSet spSMGR = _jurisUtility.RecordsetFromSQL(SMGRSql);
                             DataTable dtSMGR = spSMGR.Tables[0];
                             if (dtSMGR.Rows.Count == 0)
                             {
                                 string s2 = "Insert into documenttree(dtdocid, dtsystemcreated, dtdocclass, dtdoctype, dtparentid, dttitle) " +
                                "select (select max(dtdocid) from documenttree) + 1, 'Y', 5200,'F', dtdocid,'SMGR'" +
-                               " from documenttree where dtparentid=4 and dttitle='" + MYFolder + "'";
+                               " from documenttree where dtparentid=37 and dttitle='" + MYFolder + "'";
                                 _jurisUtility.ExecuteNonQueryCommand(0, s2);
 
                                 s2 = "Update sysparam set spnbrvalue=(select max(dtdocid) from documenttree) where spname='LastSysNbrDocTree'";
@@ -326,9 +334,8 @@ namespace JurisUtilityBase
 
                                 s2 = "Insert into documenttree(dtdocid, dtsystemcreated, dtdocclass, dtdoctype, dtparentid, dttitle, dtkeyL) " +
                                     "select (select max(dtdocid) from documenttree) + 1, 'Y', 5200,'R', " +
-                                    " (Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=4 and dttitle='" + MYFolder + "')  and dttitle='SMGR')," +
-                                    "'JPS-Credit Memo Tool-' , " +
-                                    lastBatchNo + 1;
+                                    " (Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=37 and dttitle='" + MYFolder + "')  and dttitle='SMGR')," +
+                                    "'JPS-Credit Memo Tool', " + lastBatchNo + 1;
                                 _jurisUtility.ExecuteNonQueryCommand(0, s2);
 
 
@@ -339,9 +346,8 @@ namespace JurisUtilityBase
                             {
                                 string s2 = "Insert into documenttree(dtdocid, dtsystemcreated, dtdocclass, dtdoctype, dtparentid, dttitle, dtkeyL) " +
                                     "select (select max(dtdocid) from documenttree) + 1, 'Y', 5200,'R', " +
-                                    " (Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=4 and dttitle='" + MYFolder + "')  and dttitle='SMGR')," +
-                                    "'JPS-Credit Memo Tool-' , " +
-                                    lastBatchNo + 1;
+                                    " (Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=37 and dttitle='" + MYFolder + "')  and dttitle='SMGR')," +
+                                    "'JPS-Credit Memo Tool', " + lastBatchNo + 1;
                                 _jurisUtility.ExecuteNonQueryCommand(0, s2);
 
 
@@ -352,20 +358,20 @@ namespace JurisUtilityBase
                     }
                     else
                     {
-                        string SPSql = "Select dtdocid from documenttree where dtparentid=4 and dtdocclass='5200' and dttitle='SMGR'";
+                        string SPSql = "Select dtdocid from documenttree where dtparentid=37 and dtdocclass=5200 and dttitle='SMGR'";
                         DataSet spMY = _jurisUtility.RecordsetFromSQL(SPSql);
                         DataTable dtMY = spMY.Tables[0];
                         if (dtMY.Rows.Count == 0)
                         {
                             string s2 = "Insert into documenttree(dtdocid, dtsystemcreated, dtdocclass, dtdoctype, dtparentid, dttitle) " +
-                                  "select max(dtdocid)  + 1, 'Y', 5200,'F', 4,'SMGR' from documenttree ";
+                                  "values ((select max(dtdocid)  + 1 from documenttree), 'Y', 5200,'F', 37,'SMGR') ";
                             _jurisUtility.ExecuteNonQueryCommand(0, s2);
                             s2 = "Update sysparam set spnbrvalue=(select max(dtdocid) from documenttree) where spname='LastSysNbrDocTree'";
                             _jurisUtility.ExecuteNonQueryCommand(0, s2);
 
                             s2 = "Insert into documenttree(dtdocid, dtsystemcreated, dtdocclass, dtdoctype, dtparentid, dttitle) " +
                                 "select (select max(dtdocid) from documenttree) + 1, 'Y', 5200,'F', dtdocid,'" + MYFolder + "'" +
-                                " from documenttree where dtparentid=4 and dttitle='SMGR'";
+                                " from documenttree where dtparentid=37 and dttitle='SMGR'";
                             _jurisUtility.ExecuteNonQueryCommand(0, s2);
 
                             s2 = "Update sysparam set spnbrvalue=(select max(dtdocid) from documenttree) where spname='LastSysNbrDocTree'";
@@ -373,9 +379,8 @@ namespace JurisUtilityBase
 
                             s2 = "Insert into documenttree(dtdocid, dtsystemcreated, dtdocclass, dtdoctype, dtparentid, dttitle, dtkeyL) " +
                                 "select (select max(dtdocid) from documenttree) + 1, 'Y', 5200,'R', " +
-                                " (Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=4  and dttitle='SMGR') and dttitle='" + MYFolder + "')," +
-                                "'JPS-Credit Memo Tool-' , " +
-                                lastBatchNo + 1;
+                                " (Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=37  and dttitle='SMGR') and dttitle='" + MYFolder + "')," +
+                                "'JPS-Credit Memo Tool', " + lastBatchNo + 1;
                             _jurisUtility.ExecuteNonQueryCommand(0, s2);
 
 
@@ -384,14 +389,14 @@ namespace JurisUtilityBase
                         }
                         else
                         {
-                            string SMGRSql = "Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=4  and dttitle='SMGR') and dttitle='" + MYFolder + "'";
+                            string SMGRSql = "Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=37  and dttitle='SMGR') and dttitle='" + MYFolder + "'";
                             DataSet spSMGR = _jurisUtility.RecordsetFromSQL(SMGRSql);
                             DataTable dtSMGR = spSMGR.Tables[0];
                             if (dtSMGR.Rows.Count == 0)
                             {
                                 string s2 = "Insert into documenttree(dtdocid, dtsystemcreated, dtdocclass, dtdoctype, dtparentid, dttitle) " +
                                "select (select max(dtdocid) from documenttree) + 1, 'Y', 5200,'F', dtdocid,'" + MYFolder + "'" +
-                               " from documenttree where dtparentid=4 and dttitle='SMGR'";
+                               " from documenttree where dtparentid=37 and dttitle='SMGR'";
                                 _jurisUtility.ExecuteNonQueryCommand(0, s2);
 
                                 s2 = "Update sysparam set spnbrvalue=(select max(dtdocid) from documenttree) where spname='LastSysNbrDocTree'";
@@ -399,9 +404,8 @@ namespace JurisUtilityBase
 
                                 s2 = "Insert into documenttree(dtdocid, dtsystemcreated, dtdocclass, dtdoctype, dtparentid, dttitle, dtkeyL) " +
                                     "select (select max(dtdocid) from documenttree) + 1, 'Y', 5200,'R', " +
-                                    " (Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=4   and dttitle='SMGR')and dttitle='" + MYFolder + "')," +
-                                    "'JPS-Credit Memo Tool-' , " +
-                                    lastBatchNo + 1;
+                                    " (Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=37   and dttitle='SMGR')and dttitle='" + MYFolder + "')," +
+                                    "'JPS-Credit Memo Tool', " + lastBatchNo + 1;
                                 _jurisUtility.ExecuteNonQueryCommand(0, s2);
 
 
@@ -412,9 +416,8 @@ namespace JurisUtilityBase
                             {
                                 string s2 = "Insert into documenttree(dtdocid, dtsystemcreated, dtdocclass, dtdoctype, dtparentid, dttitle, dtkeyL) " +
                                     "select (select max(dtdocid) from documenttree) + 1, 'Y', 5200,'R', " +
-                                    " (Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=4 and dttitle='SMGR') and dttitle='" + MYFolder + "') ," +
-                                    "'JPS-Credit Memo Tool-' , " +
-                                    lastBatchNo + 1;
+                                    " (Select dtdocid from documenttree where dtparentid=(Select dtdocid from documenttree where dtparentid=37 and dttitle='SMGR') and dttitle='" + MYFolder + "') ," +
+                                    "'JPS-Credit Memo Tool', " + lastBatchNo + 1;
                                 _jurisUtility.ExecuteNonQueryCommand(0, s2);
 
 
@@ -426,8 +429,6 @@ namespace JurisUtilityBase
                     }
                 }
             }
-
-
 
             return lastBatchNo + 1;
 

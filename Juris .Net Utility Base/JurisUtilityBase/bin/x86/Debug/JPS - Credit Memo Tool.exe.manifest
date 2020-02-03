@@ -103,14 +103,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JPS - Credit Memo Tool.exe" size="886272">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JPS - Credit Memo Tool.exe" size="886784">
       <assemblyIdentity name="JPS - Credit Memo Tool" version="2.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>l3hvx3xewPHVekHZKmyJ8EmxYHA=</dsig:DigestValue>
+        <dsig:DigestValue>iS+70ovI6j6MLbXqmD2zw7n+YDc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
