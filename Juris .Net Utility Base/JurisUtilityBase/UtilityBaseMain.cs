@@ -156,7 +156,7 @@ namespace JurisUtilityBase
 
 
             string cmt = Application.ProductName.ToString();
-            WriteLog(cmt);
+            WriteLog("JPS - Credit Memo Utility");
 
             MessageBox.Show("Credit Memo Creation Completed.", "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
          
@@ -191,8 +191,8 @@ namespace JurisUtilityBase
 
             _jurisUtility.ExecuteNonQueryCommand(0, SQL);
 
-            SQL = "Update ARMatalloc set ARMLHLink = " + (lastLH + 1).ToString() + ",ARMFeeAdj = ([ARMFeeBld] - [ARMFeeRcvd] + [ARMFeeAdj]) * -1 ,ARMCshExpAdj = ([ARMCshExpBld] - [ARMCshExpRcvd] + [ARMCshExpAdj]) * -1 " +
-                  " ,ARMNCshExpAdj = ([ARMNCshExpBld] - [ARMNCshExpRcvd] + [ARMNCshExpAdj]) * -1  ,[ARMBalDue] = 0 where ARMBillNbr = " + cm.inv + " and ARMMatter = " + cm.mat;
+            SQL = "Update ARMatalloc set ARMLHLink = " + (lastLH + 1).ToString() + ",ARMFeeAdj = (([ARMFeeBld] - [ARMFeeRcvd] + [ARMFeeAdj]) * -1) + ARMFeeAdj ,ARMCshExpAdj = (([ARMCshExpBld] - [ARMCshExpRcvd] + [ARMCshExpAdj]) * -1) + ARMCshExpAdj " +
+                  " ,ARMNCshExpAdj = (([ARMNCshExpBld] - [ARMNCshExpRcvd] + [ARMNCshExpAdj]) * -1) + ARMNCshExpAdj  ,[ARMBalDue] = 0 where ARMBillNbr = " + cm.inv + " and ARMMatter = " + cm.mat;
 
             _jurisUtility.ExecuteNonQueryCommand(0, SQL);
 
@@ -233,11 +233,11 @@ namespace JurisUtilityBase
 
             _jurisUtility.ExecuteNonQueryCommand(0, SQL);
 
-            SQL = "Update arftaskalloc set ARFTAdj= (arftactualamtbld - arftrcvd + arftadj ) * -1" +
+            SQL = "Update arftaskalloc set ARFTAdj= ((arftactualamtbld - arftrcvd + arftadj ) * -1) + ARFTAdj" +
     " where arftmatter=" + cm.mat + " and arftbillnbr=" + cm.inv;
             _jurisUtility.ExecuteNonQueryCommand(0, SQL);
 
-            SQL = "select ARFTkpr from ARFeeAlloc where ARFBillNbr = " + cm.inv + " and ARFMatter = " + cm.mat;
+            SQL = "select distinct ARFTTkpr from ARFTaskAlloc where ARFTBillNbr = " + cm.inv + " and ARFTMatter = " + cm.mat;
 
             DataSet dds = _jurisUtility.RecordsetFromSQL(SQL);
 
@@ -248,7 +248,7 @@ namespace JurisUtilityBase
                 _jurisUtility.ExecuteNonQueryCommand(0, SQL);
             }
 
-            SQL = "Update arexpalloc set arepend= (AREBldAmount - ARERcvd + AREAdj ) * -1" +
+            SQL = "Update arexpalloc set arepend= ((AREBldAmount - ARERcvd + AREAdj ) * -1) + arepend" +
 " where AREMatter=" + cm.mat + " and AREBillNbr=" + cm.inv;
             _jurisUtility.ExecuteNonQueryCommand(0, SQL);
 
@@ -643,7 +643,8 @@ namespace JurisUtilityBase
                     invs = invs.TrimEnd(',');
                     string sqlB = "select ARMBillNbr as BillNumber, dbo.jfn_FormatClientCode(clicode) as ClientCode, dbo.jfn_FormatMatterCode(matcode) as MatterCode, cast(sum([ARMFeeBld] - [ARMFeeRcvd] + [ARMFeeAdj]) as decimal(15,2)) as Fees, " +
                     " cast(sum([ARMCshExpBld] - [ARMCshExpRcvd] + [ARMCshExpAdj]) as decimal(15, 2)) as CashExp,  cast(sum([ARMNCshExpBld] - [ARMNCshExpRcvd] + [ARMNCshExpAdj]) as decimal(15,2)) as NonCashExp, " +
-                    " cast(sum(([ARMCshExpBld] - [ARMCshExpRcvd] + [ARMCshExpAdj]) + ([ARMNCshExpBld] - [ARMNCshExpRcvd] + [ARMNCshExpAdj]) + ([ARMFeeBld] - [ARMFeeRcvd] + [ARMFeeAdj])) as decimal(15,2)) as Total, matsysnbr as matID " +
+                    " cast(sum(([ARMCshExpBld] - [ARMCshExpRcvd] + [ARMCshExpAdj]) + ([ARMNCshExpBld] - [ARMNCshExpRcvd] + [ARMNCshExpAdj]) + ([ARMFeeBld] - [ARMFeeRcvd] + [ARMFeeAdj])) as decimal(15,2)) as Total, matsysnbr as matID, " +
+                    " cast(sum([ARMFeeAdj]) as decimal(15,2)) as FeeAdj, cast(sum([ARMCshExpAdj]) as decimal(15, 2)) as CashExpAdj, cast(sum([ARMNCshExpAdj]) as decimal(15,2)) as NonCashExpAdj " +
                     " from ARMatAlloc  " +
                     " inner join matter on matsysnbr = ARMMatter " +
                     " inner join client on clisysnbr = matclinbr " +
@@ -670,6 +671,9 @@ namespace JurisUtilityBase
                                 mm.cashexp = Convert.ToDouble(dr["CashExp"].ToString());
                                 mm.fees = Convert.ToDouble(dr["Fees"].ToString());;
                                 mm.noncashexp = Convert.ToDouble(dr["NonCashExp"].ToString());
+                                mm.FeeAdj = Convert.ToDouble(dr["FeeAdj"].ToString());
+                                mm.CashExpAdj = Convert.ToDouble(dr["CashExpAdj"].ToString());
+                                mm.NonCashExpAdj = Convert.ToDouble(dr["NonCashExpAdj"].ToString());
                                 memos.Add(mm);
                             }
                         }

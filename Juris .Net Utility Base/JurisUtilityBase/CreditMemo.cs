@@ -14,5 +14,8 @@ namespace JurisUtilityBase
         public double noncashexp { get; set; }
         public int LHID { get; set; }
         public int BatchNumber { get; set; }
+        public double FeeAdj { get; set; }
+        public double CashExpAdj { get; set; }
+        public double NonCashExpAdj { get; set; }
     }
 }
